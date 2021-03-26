@@ -10,8 +10,7 @@ public class Vocabulario {
         this.vocabulario = new Hashtable<>();
     }
 
-    public void agregarTermino(String clave, String path){
-        String termino= limpiarTermino(clave);
+    public void agregarTermino(String termino, String path){
         Termino recuperado = vocabulario.get(termino);
 
         if (recuperado == null) { agregarInexistente(termino, path); }
@@ -27,9 +26,7 @@ public class Vocabulario {
         agregarAVocabulario(termino, nuevo);
     }
 
-    private String limpiarTermino(String termino){
-        return termino.toLowerCase(Locale.ROOT);
-    }
+
 
     private void agregarAVocabulario(String key, Termino termino){
         this.vocabulario.put(key, termino);
