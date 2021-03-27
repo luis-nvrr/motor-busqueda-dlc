@@ -9,7 +9,7 @@ public class Indexador {
         this.stopWord = new StopWord();
     }
 
-    public void cargarVocabularioArchivo(Archivo archivo){
+    public void cargarVocabularioArchivo(IArchivo archivo){
         String linea;
 
         archivo.openReader();
@@ -25,7 +25,7 @@ public class Indexador {
         archivo.closeReader();
     }
 
-    public void cargarStopWords(Archivo archivo){
+    public void cargarStopWords(IArchivo archivo){
         String linea;
 
         archivo.openReader();
@@ -38,8 +38,8 @@ public class Indexador {
         }
     }
 
-    public void cargarVocabularioDirectorio(Directorio directorio){
-        for (Archivo archivo: directorio.getArchivos()) {
+    public void cargarVocabularioDirectorio(IDirectorio directorio){
+        for (IArchivo archivo: directorio.getArchivos()) {
             cargarVocabularioArchivo(archivo);
         }
     }

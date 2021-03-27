@@ -1,7 +1,6 @@
 package Aplicacion;
-
-import Dominio.Archivo;
-import Dominio.Directorio;
+import Dominio.IArchivo;
+import Dominio.IDirectorio;
 import Dominio.Indexador;
 
 public class GestorIndexacion {
@@ -12,18 +11,15 @@ public class GestorIndexacion {
         indexador = new Indexador();
     }
 
-    public void cargarStopWords(String pathStopWords){
-        Archivo archivo = new Archivo(pathStopWords);
+    public void cargarStopWords(IArchivo archivo){
         indexador.cargarStopWords(archivo);
     }
 
-    public void cargarVocabularioArchivo(String pathArchivo){
-        Archivo archivo = new Archivo(pathArchivo);
+    public void cargarVocabularioArchivo(IArchivo archivo){
         indexador.cargarVocabularioArchivo(archivo);
     }
 
-    public void cargarVocabularioDirectorio(String pathDirectorio){
-        Directorio directorio = new Directorio(pathDirectorio);
+    public void cargarVocabularioDirectorio(IDirectorio directorio){
         indexador.cargarVocabularioDirectorio(directorio);
     }
 
