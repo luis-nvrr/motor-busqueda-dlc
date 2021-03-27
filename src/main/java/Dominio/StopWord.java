@@ -1,3 +1,5 @@
+package Dominio;
+
 import java.util.Hashtable;
 
 public class StopWord {

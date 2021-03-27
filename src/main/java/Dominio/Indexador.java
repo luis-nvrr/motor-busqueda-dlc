@@ -1,12 +1,16 @@
+package Dominio;
+
+import Dominio.Archivo;
+
 import java.util.Locale;
 
 public class Indexador {
     private Vocabulario vocabulario;
     private StopWord stopWord;
 
-    public Indexador(Vocabulario vocabulario, StopWord stopWord){
-        this.vocabulario = vocabulario;
-        this.stopWord = stopWord;
+    public Indexador(){
+        this.vocabulario = new Vocabulario();
+        this.stopWord = new StopWord();
     }
 
     public void cargarVocabulario(Archivo archivo){
@@ -31,6 +35,14 @@ public class Indexador {
 
     private String minuscula(String termino){
         return termino.toLowerCase(Locale.ROOT);
+    }
+
+    public String mostrarVocabulario(){
+        return vocabulario.mostrar();
+    }
+
+    public int mostrarCantidadTerminosVocabulario(){
+        return vocabulario.cantidadTerminos();
     }
 
 }

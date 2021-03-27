@@ -1,6 +1,9 @@
+package Dominio;
+
+import Dominio.Termino;
+
 import java.util.Hashtable;
 import java.util.Iterator;
-import java.util.Locale;
 import java.util.Map;
 
 public class Vocabulario {

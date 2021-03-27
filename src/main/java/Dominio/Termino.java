@@ -1,4 +1,6 @@
-import java.util.LinkedList;
+package Dominio;
+
+import Dominio.Posteo;
 
 public class Termino {
 

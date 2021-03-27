@@ -1,3 +1,5 @@
+package Dominio;
+
 public class Documento {
     private String path;
     private int frecuenciaTermino;

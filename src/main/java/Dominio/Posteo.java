@@ -1,4 +1,7 @@
-import java.util.ArrayList;
+package Dominio;
+
+import Dominio.Documento;
+
 import java.util.Hashtable;
 
 public class Posteo {
