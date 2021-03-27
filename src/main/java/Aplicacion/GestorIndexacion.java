@@ -7,8 +7,8 @@ public class GestorIndexacion {
 
     Indexador indexador;
 
-    public GestorIndexacion(){
-        indexador = new Indexador();
+    public GestorIndexacion(Indexador indexador){
+        this.indexador = indexador;
     }
 
     public void cargarStopWords(IArchivo archivo){
