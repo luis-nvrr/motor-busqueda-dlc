@@ -1,7 +1,5 @@
 package Dominio;
 
-import Dominio.Archivo;
-
 import java.util.Locale;
 
 public class Indexador {
@@ -14,18 +12,23 @@ public class Indexador {
     }
 
     public void cargarVocabulario(Archivo archivo){
-        String texto = archivo.obtenerTexto();
-        String[] terminos = texto.split("\\P{L}+");
+        String linea;
 
-        for (String term: terminos) {
-            String termino = minuscula(term);
-            if(stopWord.esStopWord(termino)) { continue; }
-            vocabulario.agregarTermino(termino, archivo.obtenerPath());
+        archivo.openReader();
+        while( (linea = archivo.obtenerSiguienteLinea()) != null){
+        String[] terminos = linea.split("\\P{L}+");
+
+            for (String term: terminos) {
+                String termino = minuscula(term);
+                if(stopWord.esStopWord(termino)) { continue; }
+                vocabulario.agregarTermino(termino, archivo.obtenerPath());
+            }
         }
+        archivo.closeReader();
     }
 
     public void cargarStopWords(Archivo archivo){
-        String texto = archivo.obtenerTexto();
+        String texto = archivo.obtenerSiguienteLinea();
         String[] terminos = texto.split("\\P{L}+");
 
         for(String termino: terminos){

@@ -1,32 +1,45 @@
 package Dominio;
 
-import org.apache.pdfbox.pdmodel.PDDocument;
-import org.apache.pdfbox.text.PDFTextStripper;
-
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
 
 public class Archivo {
-    private PDDocument doc;
-    private File file;
+    private String path;
+    BufferedReader bufferedReader;
 
     public Archivo(String path){
-        this.file =  new File(path);
+        this.path = path;
     }
 
-    public String obtenerTexto(){
-        String text = "";
+    public void openReader(){
         try{
-            doc = PDDocument.load(file);
-            text = new PDFTextStripper().getText(doc);
+            bufferedReader = new BufferedReader(new FileReader(path));
+        }
+        catch(FileNotFoundException exception){
+            exception.printStackTrace();
+        }
+    }
+
+    public String obtenerSiguienteLinea(){
+        String linea = "";
+        try{
+            linea = bufferedReader.readLine();
+        }
+        catch (IOException exception){
+            exception.printStackTrace();
+        }
+        return linea;
+    }
+
+    public void closeReader(){
+        try{
+            bufferedReader.close();
         }
         catch(IOException exception){
             exception.printStackTrace();
         }
-        return text;
     }
 
     public String obtenerPath() {
-        return file.getAbsolutePath();
+        return path;
     }
 }
