@@ -22,16 +22,4 @@ public class GestorIndexacion {
     public void cargarVocabularioDirectorio(IDirectorio directorio){
         indexador.cargarVocabularioDirectorio(directorio);
     }
-
-    public String mostrarVocabulario(){
-        return indexador.mostrarVocabulario();
-    }
-
-    public int mostrarCantidadTerminosVocabulario(){
-        return indexador.mostrarCantidadTerminosVocabulario();
-    }
-
-    public String mostrarOrdenPosteo(){
-        return indexador.mostrarOrdenPosteo();
-    }
 }

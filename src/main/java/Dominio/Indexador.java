@@ -4,9 +4,9 @@ public class Indexador {
     private Vocabulario vocabulario;
     private StopWord stopWord;
 
-    public Indexador(){
-        this.vocabulario = new Vocabulario();
-        this.stopWord = new StopWord();
+    public Indexador(Vocabulario vocabulario, StopWord stopWord){
+        this.vocabulario = vocabulario;
+        this.stopWord = stopWord;
     }
 
     public void cargarVocabularioArchivo(IArchivo archivo){
@@ -43,17 +43,4 @@ public class Indexador {
             cargarVocabularioArchivo(archivo);
         }
     }
-
-    public String mostrarVocabulario(){
-        return vocabulario.mostrarTerminos();
-    }
-
-    public int mostrarCantidadTerminosVocabulario(){
-        return vocabulario.cantidadTerminos();
-    }
-
-    public String mostrarOrdenPosteo() {
-        return vocabulario.mostrarOrdenPosteo();
-    }
-
 }
