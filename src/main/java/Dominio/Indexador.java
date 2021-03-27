@@ -11,7 +11,7 @@ public class Indexador {
         this.stopWord = new StopWord();
     }
 
-    public void cargarVocabulario(Archivo archivo){
+    public void cargarVocabularioArchivo(Archivo archivo){
         String linea;
 
         archivo.openReader();
@@ -28,11 +28,21 @@ public class Indexador {
     }
 
     public void cargarStopWords(Archivo archivo){
-        String texto = archivo.obtenerSiguienteLinea();
-        String[] terminos = texto.split("\\P{L}+");
+        String linea;
 
-        for(String termino: terminos){
-            stopWord.agregarStopWord(termino);
+        archivo.openReader();
+        while((linea = archivo.obtenerSiguienteLinea()) != null) {
+            String[] terminos = linea.split("\\P{L}+");
+
+            for(String termino: terminos){
+                stopWord.agregarStopWord(termino);
+            }
+        }
+    }
+
+    public void cargarVocabularioDirectorio(Directorio directorio){
+        for (Archivo archivo: directorio.getArchivos()) {
+            cargarVocabularioArchivo(archivo);
         }
     }
 
