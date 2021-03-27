@@ -16,10 +16,9 @@ public class Indexador {
 
         archivo.openReader();
         while( (linea = archivo.obtenerSiguienteLinea()) != null){
-        String[] terminos = linea.split("\\P{L}+");
+        String[] terminos = linea.replaceAll("[^a-zA-Z ]", " ").toLowerCase().split("\\s+");
 
-            for (String term: terminos) {
-                String termino = minuscula(term);
+            for (String termino: terminos) {
                 if(stopWord.esStopWord(termino)) { continue; }
                 vocabulario.agregarTermino(termino, archivo.obtenerPath());
             }
@@ -44,10 +43,6 @@ public class Indexador {
         for (Archivo archivo: directorio.getArchivos()) {
             cargarVocabularioArchivo(archivo);
         }
-    }
-
-    private String minuscula(String termino){
-        return termino.toLowerCase(Locale.ROOT);
     }
 
     public String mostrarVocabulario(){
