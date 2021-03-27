@@ -1,14 +1,12 @@
-package Infraestructura;
-
-import Dominio.IArchivo;
+package Dominio;
 
 import java.io.*;
 
-public class Archivo implements IArchivo {
+public class ArchivoLocal implements IArchivo {
     private String path;
     BufferedReader bufferedReader;
 
-    public Archivo(String path){
+    public ArchivoLocal(String path){
         this.path = path;
     }
 

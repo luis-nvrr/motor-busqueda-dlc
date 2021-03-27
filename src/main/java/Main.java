@@ -1,5 +1,3 @@
-package Infraestructura;
-
 import Aplicacion.GestorIndexacion;
 import Aplicacion.GestorVisualizacion;
 import Dominio.*;
@@ -15,8 +13,8 @@ public class Main {
         GestorVisualizacion gestorVisualizacion = new GestorVisualizacion(vocabulario);
 
         //String pathArchivo = "C:\\Users\\luis\\Downloads\\prueba\\00ws110.txt";
-        IArchivo stopWwords = new Archivo("C:\\Users\\luis\\Downloads\\stopWords.txt");
-        IDirectorio directorio = new Directorio("C:\\Users\\luis\\Downloads\\prueba");
+        IArchivo stopWwords = new ArchivoLocal("C:\\Users\\luis\\Downloads\\stopWords.txt");
+        IDirectorio directorio = new DirectorioLocal("C:\\Users\\luis\\Downloads\\prueba");
 
 
         gestorIndexacion.cargarStopWords(stopWwords);
