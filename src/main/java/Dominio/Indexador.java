@@ -16,9 +16,13 @@ public class Indexador {
 
         archivo.openReader();
         while( (linea = archivo.obtenerSiguienteLinea()) != null){
-        String[] terminos = linea.replaceAll("[^a-zA-Z ]", " ").toLowerCase().split("\\s+");
+        String[] terminos = linea
+                .replaceAll("[^a-zA-Z ]", "")
+                .toLowerCase()
+                .split("\\W+");
 
             for (String termino: terminos) {
+                if(termino.equals("")) { continue; }
                 if(stopWord.esStopWord(termino)) { continue; }
                 vocabulario.agregarTermino(termino, archivo.obtenerPath());
             }
