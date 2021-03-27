@@ -1,13 +1,11 @@
 package Dominio;
 
-import Dominio.Termino;
-
 import java.util.Hashtable;
 import java.util.Iterator;
 import java.util.Map;
 
 public class Vocabulario {
-    private Hashtable<String, Termino> vocabulario;
+    private Map<String, Termino> vocabulario;
 
     public Vocabulario(){
         this.vocabulario = new Hashtable<>();
