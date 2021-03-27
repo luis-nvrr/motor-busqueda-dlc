@@ -15,8 +15,8 @@ public class Main {
         gestor.cargarVocabularioDirectorio(pathDirectorio);
         //gestor.cargarVocabularioArchivo(pathArchivo);
 
-        //System.out.println(gestor.mostrarVocabulario());
-        //System.out.println(gestor.mostrarCantidadTerminosVocabulario());
-        System.out.println(gestor.mostrarOrdenPosteo());
+        System.out.println(gestor.mostrarVocabulario());
+        System.out.println(gestor.mostrarCantidadTerminosVocabulario());
+        //System.out.println(gestor.mostrarOrdenPosteo());
     }
 }

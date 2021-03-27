@@ -14,12 +14,7 @@ public class Indexador {
 
         archivo.openReader();
         while( (linea = archivo.obtenerSiguienteLinea()) != null){
-            String[] terminos = linea
-                    .trim()
-                    .replaceAll("[^a-zA-Z0-9 ]", "")
-                    .toLowerCase()
-                    .replaceAll("\\s+", " ")
-                    .split(" ");
+            String[] terminos = FormatedorEntrada.formatear(linea);
 
             for (String termino: terminos) {
                 if(termino.equals("")) { continue; }
@@ -35,13 +30,7 @@ public class Indexador {
 
         archivo.openReader();
         while((linea = archivo.obtenerSiguienteLinea()) != null) {
-            String[] terminos = linea
-                    .trim()
-                    .replaceAll("[^a-zA-Z0-9 ]", "")
-                    .toLowerCase()
-                    .replaceAll("\\s+", " ")
-                    .split(" ");
-
+            String[] terminos = FormatedorEntrada.formatear(linea);
 
             for(String termino: terminos){
                 stopWord.agregarStopWord(termino);
