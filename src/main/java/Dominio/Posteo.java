@@ -1,19 +1,20 @@
 package Dominio;
 
-import Dominio.Documento;
-
-import java.util.Hashtable;
+import java.util.*;
 
 public class Posteo {
-    private Hashtable<String, Documento> posteo;
+    private Map<String, Documento> posteo;
     private String inicioArchivoPosteo;
     private int cantidadDocumentos;
     private int maximaFrecuenciaTermino;
+    private boolean ordenado;
+
 
     public Posteo(){
         this.posteo = new Hashtable<>();
         this.cantidadDocumentos = 1;
         this.maximaFrecuenciaTermino = 1;
+        this.ordenado = false;
     }
 
     public void agregarDocumento(String path){
@@ -45,7 +46,23 @@ public class Posteo {
 
     private void agregarAPosteo(String path, Documento documento){
         this.posteo.put(path, documento);
+        this.ordenado = false;
     }
 
+    public String mostrarOrden(){
+        if(!ordenado) { posteo = Ordenador.sortByValue(posteo); }
+        this.ordenado = true;
+
+        Iterator<Map.Entry<String, Documento>> it = posteo.entrySet().iterator();
+        StringBuilder stringBuilder = new StringBuilder();
+
+        while(it.hasNext()) {
+            stringBuilder.append("documento: ");
+            stringBuilder.append(it.next().getValue().getFrecuenciaTermino());
+            stringBuilder.append(" ");
+        }
+        stringBuilder.append("\n");
+        return stringBuilder.toString();
+    }
 
 }

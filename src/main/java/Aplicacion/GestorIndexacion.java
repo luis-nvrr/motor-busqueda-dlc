@@ -34,4 +34,8 @@ public class GestorIndexacion {
     public int mostrarCantidadTerminosVocabulario(){
         return indexador.mostrarCantidadTerminosVocabulario();
     }
+
+    public String mostrarOrdenPosteo(){
+        return indexador.mostrarOrdenPosteo();
+    }
 }

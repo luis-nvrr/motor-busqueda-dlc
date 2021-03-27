@@ -35,7 +35,7 @@ public class Vocabulario {
         this.vocabulario.put(key, termino);
     }
 
-    public String mostrar(){
+    public String mostrarTerminos(){
         Iterator<Map.Entry<String, Termino>> it = vocabulario.entrySet().iterator();
         StringBuilder stringBuilder = new StringBuilder();
         while(it.hasNext()) {
@@ -49,6 +49,20 @@ public class Vocabulario {
 
     public int cantidadTerminos(){
         return vocabulario.size();
+    }
+
+    public String mostrarOrdenPosteo(){
+        Iterator<Map.Entry<String, Termino>> it = vocabulario.entrySet().iterator();
+        StringBuilder stringBuilder = new StringBuilder();
+        while(it.hasNext()) {
+            Map.Entry<String, Termino> entry = it.next();
+            stringBuilder.append("termino: ");
+            stringBuilder.append(entry.getKey());
+            stringBuilder.append(" posteo: ");
+            stringBuilder.append(entry.getValue().mostrarOrdenPosteo());
+            stringBuilder.append("\n");
+        }
+        return stringBuilder.toString();
     }
 
 }

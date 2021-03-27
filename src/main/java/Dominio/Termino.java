@@ -1,7 +1,5 @@
 package Dominio;
 
-import Dominio.Posteo;
-
 public class Termino {
 
     private String termino;
@@ -15,5 +13,9 @@ public class Termino {
 
     public void agregarDocumento(String path){
         this.posteo.agregarDocumento(path);
+    }
+
+    public String mostrarOrdenPosteo(){
+        return posteo.mostrarOrden();
     }
 }

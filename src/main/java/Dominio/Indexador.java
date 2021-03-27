@@ -1,7 +1,5 @@
 package Dominio;
 
-import java.util.Locale;
-
 public class Indexador {
     private Vocabulario vocabulario;
     private StopWord stopWord;
@@ -16,10 +14,12 @@ public class Indexador {
 
         archivo.openReader();
         while( (linea = archivo.obtenerSiguienteLinea()) != null){
-        String[] terminos = linea
-                .replaceAll("[^a-zA-Z0-9\\s+]", "")
-                .toLowerCase()
-                .split(" ");
+            String[] terminos = linea
+                    .trim()
+                    .replaceAll("[^a-zA-Z0-9 ]", "")
+                    .toLowerCase()
+                    .replaceAll("\\s+", " ")
+                    .split(" ");
 
             for (String termino: terminos) {
                 if(termino.equals("")) { continue; }
@@ -36,9 +36,12 @@ public class Indexador {
         archivo.openReader();
         while((linea = archivo.obtenerSiguienteLinea()) != null) {
             String[] terminos = linea
-                    .replaceAll("[^a-zA-Z0-9\\s+]", "")
+                    .trim()
+                    .replaceAll("[^a-zA-Z0-9 ]", "")
                     .toLowerCase()
+                    .replaceAll("\\s+", " ")
                     .split(" ");
+
 
             for(String termino: terminos){
                 stopWord.agregarStopWord(termino);
@@ -53,11 +56,15 @@ public class Indexador {
     }
 
     public String mostrarVocabulario(){
-        return vocabulario.mostrar();
+        return vocabulario.mostrarTerminos();
     }
 
     public int mostrarCantidadTerminosVocabulario(){
         return vocabulario.cantidadTerminos();
+    }
+
+    public String mostrarOrdenPosteo() {
+        return vocabulario.mostrarOrdenPosteo();
     }
 
 }
