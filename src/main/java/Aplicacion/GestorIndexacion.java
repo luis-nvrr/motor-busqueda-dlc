@@ -1,25 +1,42 @@
 package Aplicacion;
-import Dominio.IArchivo;
-import Dominio.IDirectorio;
-import Dominio.Indexador;
+import Dominio.*;
 
 public class GestorIndexacion {
 
     Indexador indexador;
+    Vocabulario vocabulario;
+    StopWord stopWord;
 
-    public GestorIndexacion(Indexador indexador){
-        this.indexador = indexador;
+    public GestorIndexacion(){
+        this.vocabulario = new Vocabulario();
+        this.stopWord = new StopWord();
+        this.indexador = new Indexador(vocabulario, stopWord);
     }
 
-    public void cargarStopWords(IArchivo archivo){
+    public void cargarStopWords(String archivoPath){
+        IArchivo archivo = new ArchivoLocal(archivoPath);
         indexador.cargarStopWords(archivo);
     }
 
-    public void cargarVocabularioArchivo(IArchivo archivo){
+    public void cargarVocabularioArchivo(String archivoPath){
+        IArchivo archivo = new ArchivoLocal(archivoPath);
         indexador.cargarVocabularioArchivo(archivo);
     }
 
-    public void cargarVocabularioDirectorio(IDirectorio directorio){
+    public void cargarVocabularioDirectorio(String directorioPath){
+        IDirectorio directorio = new DirectorioLocal(directorioPath);
         indexador.cargarVocabularioDirectorio(directorio);
+    }
+
+    public String mostrarVocabulario(){
+        return vocabulario.mostrarTerminos();
+    }
+
+    public int mostrarCantidadTerminosVocabulario(){
+        return vocabulario.cantidadTerminos();
+    }
+
+    public String mostrarOrdenPosteo(){
+        return vocabulario.mostrarOrdenPosteo();
     }
 }
