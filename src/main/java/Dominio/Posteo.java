@@ -7,14 +7,11 @@ public class Posteo {
     private String inicioArchivoPosteo;
     private int cantidadDocumentos;
     private int maximaFrecuenciaTermino;
-    private boolean ordenado;
-
 
     public Posteo(){
         this.posteo = new Hashtable<>();
         this.cantidadDocumentos = 1;
         this.maximaFrecuenciaTermino = 1;
-        this.ordenado = false;
     }
 
     public void agregarDocumento(String path){
@@ -46,12 +43,10 @@ public class Posteo {
 
     private void agregarAPosteo(String path, Documento documento){
         this.posteo.put(path, documento);
-        this.ordenado = false;
     }
 
     public String mostrarOrden(){
-        if(!ordenado) { posteo = Ordenador.sortByValue(posteo); }
-        this.ordenado = true;
+        posteo = Ordenador.sortByValue(posteo);
 
         Iterator<Map.Entry<String, Documento>> it = posteo.entrySet().iterator();
         StringBuilder stringBuilder = new StringBuilder();
