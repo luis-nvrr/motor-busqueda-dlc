@@ -3,6 +3,7 @@ package Dominio;
 public class Documento implements Comparable<Documento>{
     private String path;
     private int frecuenciaTermino;
+    private String link;
 
     public Documento(String path){
         this.path = path;

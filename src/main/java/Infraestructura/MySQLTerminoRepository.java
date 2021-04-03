@@ -5,7 +5,7 @@ import Dominio.TerminoRepository;
 
 import java.util.Map;
 
-public class MongoTerminoRepository implements TerminoRepository {
+public class MySQLTerminoRepository implements TerminoRepository {
 
     @Override
     public Termino getTermino(String termino) {

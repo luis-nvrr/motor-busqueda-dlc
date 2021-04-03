@@ -8,12 +8,6 @@
     <artifactId>motor-busqueda-dlc</artifactId>
     <version>1.0-SNAPSHOT</version>
     <dependencies>
-
-        <dependency>
-            <groupId>org.mongodb</groupId>
-            <artifactId>mongodb-driver-sync</artifactId>
-            <version>4.2.2</version>
-        </dependency>
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>

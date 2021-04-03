@@ -5,7 +5,7 @@ import Dominio.DocumentoRepository;
 
 import java.util.Map;
 
-public class MongoDocumentoRepository implements DocumentoRepository {
+public class MySQLDocumentoRepository implements DocumentoRepository {
 
     @Override
     public Documento getDocumento() {
