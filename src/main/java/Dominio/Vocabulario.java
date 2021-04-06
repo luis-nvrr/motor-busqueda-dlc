@@ -27,10 +27,12 @@ public class Vocabulario {
         agregarAVocabulario(termino, nuevo);
     }
 
-
-
     private void agregarAVocabulario(String key, Termino termino){
         this.vocabulario.put(key, termino);
+    }
+
+    public void persistir(TerminoRepository terminoRepository){
+        terminoRepository.saveTerminos(vocabulario);
     }
 
     public String mostrarTerminos(){

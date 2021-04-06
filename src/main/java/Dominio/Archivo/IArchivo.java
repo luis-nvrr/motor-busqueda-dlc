@@ -1,4 +1,4 @@
-package Dominio;
+package Dominio.Archivo;
 
 public interface IArchivo {
 

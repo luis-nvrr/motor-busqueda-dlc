@@ -1,4 +1,4 @@
-package Dominio;
+package Dominio.Archivo;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -15,7 +15,7 @@ public class DirectorioLocal implements IDirectorio {
 
     public List<IArchivo> getArchivos(){
         for (File file: directorio.listFiles()) {
-            IArchivo archivo = new ArchivoLocal(file.getAbsolutePath());
+            IArchivo archivo = new ArchivoLocal(file.getName());
             archivos.add(archivo);
         }
         return archivos;

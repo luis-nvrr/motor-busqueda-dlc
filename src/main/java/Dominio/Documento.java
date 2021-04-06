@@ -10,6 +10,10 @@ public class Documento implements Comparable<Documento>{
         this.frecuenciaTermino = 1;
     }
 
+    public String getLink() {
+        return link;
+    }
+
     public void sumarFrecuencia(){
         this.frecuenciaTermino++;
     }

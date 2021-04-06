@@ -19,6 +19,22 @@ public class Termino {
         this.termino = termino;
     }
 
+    public Map<String, Documento> getPosteo(){
+        return posteo;
+    }
+
+    public String getTermino() {
+        return termino;
+    }
+
+    public int getCantidadDocumentos() {
+        return cantidadDocumentos;
+    }
+
+    public int getMaximaFrecuenciaTermino() {
+        return maximaFrecuenciaTermino;
+    }
+
     public void agregarDocumento(String path){
         cantidadDocumentos++;
         Documento recuperado = posteo.get(path);

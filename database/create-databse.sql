@@ -1,3 +1,4 @@
+CREATE DATABASE `motor-busqueda-dlc`;
 USE `motor-busqueda-dlc`;
 
 CREATE TABLE Terminos(
@@ -17,7 +18,5 @@ CREATE TABLE Documentos(
 CREATE TABLE Posteos(
     id INTEGER NOT NULL PRIMARY KEY AUTO_INCREMENT,
     termino VARCHAR(100),
-    documento VARCHAR(200),
-    CONSTRAINT fk_posteos_terminos FOREIGN KEY (termino) REFERENCES Terminos(termino),
-    CONSTRAINT fk_posteos_documentos FOREIGN KEY (documento) REFERENCES Documentos(path)
+    documento VARCHAR(200)
 );

@@ -13,8 +13,8 @@ public class Main {
         gestorIndexacion.cargarVocabularioDirectorio(directorioPath);
         //gestorIndexacion.cargarVocabularioArchivo(pathArchivo);
 
-        System.out.println(gestorIndexacion.mostrarVocabulario());
-        System.out.println(gestorIndexacion.mostrarCantidadTerminosVocabulario());
+        //System.out.println(gestorIndexacion.mostrarVocabulario());
+        //System.out.println(gestorIndexacion.mostrarCantidadTerminosVocabulario());
         //System.out.println(gestorVisualizacion.mostrarOrdenPosteo());
     }
 }

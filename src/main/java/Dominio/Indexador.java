@@ -1,5 +1,8 @@
 package Dominio;
 
+import Dominio.Archivo.IArchivo;
+import Dominio.Archivo.IDirectorio;
+
 public class Indexador {
     private Vocabulario vocabulario;
     private StopWord stopWord;
