@@ -3,7 +3,6 @@ package Infraestructura;
 import io.github.cdimascio.dotenv.Dotenv;
 
 import java.sql.*;
-import java.util.Map;
 
 public class MySQLConnection {
     public static final Dotenv dotenv = Dotenv.load();

@@ -22,7 +22,7 @@ public class Indexador {
             for (String termino: terminos) {
                 if(termino.equals("")) { continue; }
                 if(stopWord.esStopWord(termino)) { continue; }
-                vocabulario.agregarTermino(termino, archivo.obtenerPath());
+                vocabulario.agregarTermino(termino, archivo.obtenerNombre());
             }
         }
         archivo.closeReader();

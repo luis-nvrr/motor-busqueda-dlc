@@ -4,10 +4,15 @@ import java.io.*;
 
 public class ArchivoLocal implements IArchivo {
     private String path;
-    BufferedReader bufferedReader;
+    private BufferedReader bufferedReader;
+    private String nombre;
+    private File archivo;
+
 
     public ArchivoLocal(String path){
         this.path = path;
+        this.archivo = new File(path);
+        this.nombre = archivo.getName();
     }
 
     public void openReader(){
@@ -42,4 +47,6 @@ public class ArchivoLocal implements IArchivo {
     public String obtenerPath() {
         return path;
     }
+
+    public String obtenerNombre(){ return nombre; }
 }

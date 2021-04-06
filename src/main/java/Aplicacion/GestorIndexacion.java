@@ -13,12 +13,14 @@ public class GestorIndexacion {
     Vocabulario vocabulario;
     StopWord stopWord;
     TerminoRepository terminoRepository;
+    DocumentoRepository documentoRepository;
 
     public GestorIndexacion(){
         this.vocabulario = new Vocabulario();
         this.stopWord = new StopWord();
         this.indexador = new Indexador(vocabulario, stopWord);
         this.terminoRepository = new MySQLTerminoRepository();
+        this.documentoRepository = new MySQLDocumentoRepository();
     }
 
     public void cargarStopWords(String archivoPath){
@@ -51,6 +53,7 @@ public class GestorIndexacion {
     }
 
     private void persistir(){
-        vocabulario.persistir(terminoRepository);
+        vocabulario.saveTerminos(terminoRepository);
+        vocabulario.saveDocumentos(documentoRepository);
     }
 }

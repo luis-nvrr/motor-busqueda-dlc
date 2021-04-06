@@ -11,7 +11,6 @@ import java.util.Map;
 public class MySQLTerminoRepository implements TerminoRepository {
 
     private Connection connection;
-    private final DocumentoRepository documentoRepository = new MySQLDocumentoRepository();
 
     @Override
     public Termino getTermino(String termino) {
@@ -37,10 +36,6 @@ public class MySQLTerminoRepository implements TerminoRepository {
                             "(termino, cantidadDocumentos, maximaFrecuenciaTermino) VALUES ");
 
             for (Map.Entry<String, Termino> entry : terminos.entrySet()) {
-
-                //Map<String, Documento> posteo = entry.getValue().getPosteo();
-                //documentoRepository.saveDocumentos(posteo);
-
                 String palabra = entry.getValue().getTermino();
                 int cantidadDocumentos = entry.getValue().getCantidadDocumentos();
                 int maximaFrecuenciaTermino = entry.getValue().getMaximaFrecuenciaTermino();
@@ -53,6 +48,7 @@ public class MySQLTerminoRepository implements TerminoRepository {
 
             statement.execute(query.toString());
             connection.close();
+
         } catch (SQLException exception) {
             exception.printStackTrace();
         }

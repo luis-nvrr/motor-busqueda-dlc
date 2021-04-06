@@ -6,4 +6,5 @@ public interface IArchivo {
     String obtenerSiguienteLinea();
     void closeReader();
     String obtenerPath();
+    String obtenerNombre();
 }

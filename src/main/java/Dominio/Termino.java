@@ -53,7 +53,7 @@ public class Termino {
     private void actualizarDocumentoExistente(Documento documento){
         documento.sumarFrecuencia();
         actualizarFrecuenciaMaxima(documento);
-        agregarAPosteo(documento.getPath(), documento);
+        agregarAPosteo(documento.getNombre(), documento);
     }
 
     private void actualizarFrecuenciaMaxima(Documento documento){

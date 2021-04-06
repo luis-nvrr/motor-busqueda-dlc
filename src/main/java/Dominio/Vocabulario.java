@@ -31,8 +31,12 @@ public class Vocabulario {
         this.vocabulario.put(key, termino);
     }
 
-    public void persistir(TerminoRepository terminoRepository){
+    public void saveTerminos(TerminoRepository terminoRepository){
         terminoRepository.saveTerminos(vocabulario);
+    }
+
+    public void saveDocumentos(DocumentoRepository documentoRepository){
+        documentoRepository.saveDocumentos(vocabulario);
     }
 
     public String mostrarTerminos(){

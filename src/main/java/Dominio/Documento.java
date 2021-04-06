@@ -1,12 +1,12 @@
 package Dominio;
 
 public class Documento implements Comparable<Documento>{
-    private String path;
+    private String nombre;
     private int frecuenciaTermino;
     private String link;
 
-    public Documento(String path){
-        this.path = path;
+    public Documento(String nombre){
+        this.nombre = nombre;
         this.frecuenciaTermino = 1;
     }
 
@@ -22,14 +22,14 @@ public class Documento implements Comparable<Documento>{
         return frecuenciaTermino;
     }
 
-    public String getPath(){
-        return this.path;
+    public String getNombre(){
+        return this.nombre;
     }
 
     @Override
     public int compareTo(Documento o) {
         if(o == null) { throw new NullPointerException(); }
-        Documento comparado = (Documento) o;
+        Documento comparado = o;
 
         return this.frecuenciaTermino - comparado.frecuenciaTermino;
     }
@@ -42,12 +42,12 @@ public class Documento implements Comparable<Documento>{
         Documento documento = (Documento) o;
 
         if (frecuenciaTermino != documento.frecuenciaTermino) return false;
-        return path.equals(documento.path);
+        return nombre.equals(documento.nombre);
     }
 
     @Override
     public int hashCode() {
-        int result = path.hashCode();
+        int result = nombre.hashCode();
         result = 31 * result + frecuenciaTermino;
         return result;
     }
