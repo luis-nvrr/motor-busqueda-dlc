@@ -142,7 +142,6 @@ buildNumber.properties
 # https://github.com/takari/maven-wrapper#usage-without-binary-jar
 .mvn/wrapper/maven-wrapper.jar
 .flattened-pom.xml
-MySQLConnection.java
 .env
 
 # End of https://www.toptal.com/developers/gitignore/api/intellij,java,maven
