@@ -5,6 +5,7 @@ import Dominio.Archivo.DirectorioLocal;
 import Dominio.Archivo.IArchivo;
 import Dominio.Archivo.IDirectorio;
 import Infraestructura.MySQLDocumentoRepository;
+import Infraestructura.MySQLPosteoRepository;
 import Infraestructura.MySQLTerminoRepository;
 
 public class GestorIndexacion {
@@ -13,6 +14,7 @@ public class GestorIndexacion {
     Vocabulario vocabulario;
     StopWord stopWord;
     TerminoRepository terminoRepository;
+    PosteoRepository posteoRepository;
     DocumentoRepository documentoRepository;
 
     public GestorIndexacion(){
@@ -20,6 +22,7 @@ public class GestorIndexacion {
         this.stopWord = new StopWord();
         this.indexador = new Indexador(vocabulario, stopWord);
         this.terminoRepository = new MySQLTerminoRepository();
+        this.posteoRepository = new MySQLPosteoRepository();
         this.documentoRepository = new MySQLDocumentoRepository();
     }
 
@@ -53,7 +56,8 @@ public class GestorIndexacion {
     }
 
     private void persistir(){
-        vocabulario.saveTerminos(terminoRepository);
-        vocabulario.saveDocumentos(documentoRepository);
+        //vocabulario.saveTerminos(terminoRepository);
+        //vocabulario.saveDocumentos(documentoRepository);
+        vocabulario.savePosteos(posteoRepository);
     }
 }

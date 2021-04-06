@@ -6,7 +6,7 @@ import java.util.Map;
 
 public class Termino {
 
-    private Map<String, Documento> posteo;
+    private Map<Documento, Posteo> posteo;
     private String termino;
     private int cantidadDocumentos;
     private int maximaFrecuenciaTermino;
@@ -19,7 +19,7 @@ public class Termino {
         this.termino = termino;
     }
 
-    public Map<String, Documento> getPosteo(){
+    public Map<Documento, Posteo> getPosteo(){
         return posteo;
     }
 
@@ -35,41 +35,41 @@ public class Termino {
         return maximaFrecuenciaTermino;
     }
 
-    public void agregarDocumento(String path){
+    public void agregarPosteo(Documento documento){
         cantidadDocumentos++;
-        Documento recuperado = posteo.get(path);
+        Posteo recuperado = posteo.get(documento);
 
-        if(recuperado == null){ agregarInexistente(path);}
+        if(recuperado == null){ agregarNuevoPosteo(documento);}
         else{
-            actualizarDocumentoExistente(recuperado);
+            actualizarPosteoExistente(documento, recuperado);
         }
     }
 
-    private void agregarInexistente(String path){
-        Documento documento = new Documento(path);
-        agregarAPosteo(path, documento);
+    private void agregarNuevoPosteo(Documento documento){
+        Posteo posteo = new Posteo(documento);
+        agregarAPosteo(documento, posteo);
     }
 
-    private void actualizarDocumentoExistente(Documento documento){
-        documento.sumarFrecuencia();
-        actualizarFrecuenciaMaxima(documento);
-        agregarAPosteo(documento.getNombre(), documento);
+    private void actualizarPosteoExistente(Documento documento, Posteo posteo){
+        posteo.sumarFrecuencia();
+        actualizarFrecuenciaMaxima(posteo);
+        agregarAPosteo(documento, posteo);
     }
 
-    private void actualizarFrecuenciaMaxima(Documento documento){
-        if (documento.getFrecuenciaTermino() > maximaFrecuenciaTermino){
-            maximaFrecuenciaTermino = documento.getFrecuenciaTermino();
+    private void actualizarFrecuenciaMaxima(Posteo posteo){
+        if (posteo.getFrecuenciaTermino() > maximaFrecuenciaTermino){
+            maximaFrecuenciaTermino = posteo.getFrecuenciaTermino();
         }
     }
 
-    private void agregarAPosteo(String path, Documento documento){
-        this.posteo.put(path, documento);
+    private void agregarAPosteo(Documento documento, Posteo posteo){
+        this.posteo.put(documento, posteo);
     }
 
     public String mostrarOrdenPosteo(){
         posteo = Ordenador.sortByValue(posteo);
 
-        Iterator<Map.Entry<String, Documento>> it = posteo.entrySet().iterator();
+        Iterator<Map.Entry<Documento, Posteo>> it = posteo.entrySet().iterator();
         StringBuilder stringBuilder = new StringBuilder();
 
         while(it.hasNext()) {

@@ -6,24 +6,31 @@ import java.util.Map;
 
 public class Vocabulario {
     private Map<String, Termino> vocabulario;
+    private Map<String, Documento> documentos;
 
     public Vocabulario(){
         this.vocabulario = new Hashtable<>();
+        this.documentos = new Hashtable<>();
     }
 
-    public void agregarTermino(String termino, String path){
-        Termino recuperado = vocabulario.get(termino);
 
-        if (recuperado == null) { agregarInexistente(termino, path); }
+    public void agregarTermino(String termino, String nombre){
+        Termino recuperado = vocabulario.get(termino);
+        Documento documento = documentos.get(nombre);
+
+        if (recuperado == null) { agregarInexistente(termino, documento); }
         else{
-            recuperado.agregarDocumento(path);
-            agregarAVocabulario(termino, recuperado);
+            actualizarExistente(recuperado, documento);
         }
     }
 
-    private void agregarInexistente(String termino, String path){
+    private void actualizarExistente(Termino termino, Documento documento){
+        termino.agregarPosteo(documento);
+        agregarAVocabulario(termino.getTermino(), termino);
+    }
+    private void agregarInexistente(String termino, Documento documento){
         Termino nuevo = new Termino(termino);
-        nuevo.agregarDocumento(path);
+        nuevo.agregarPosteo(documento);
         agregarAVocabulario(termino, nuevo);
     }
 
@@ -35,8 +42,12 @@ public class Vocabulario {
         terminoRepository.saveTerminos(vocabulario);
     }
 
+    public void savePosteos(PosteoRepository posteoRepository){
+        posteoRepository.saveDocumentos(vocabulario);
+    }
+
     public void saveDocumentos(DocumentoRepository documentoRepository){
-        documentoRepository.saveDocumentos(vocabulario);
+        documentoRepository.saveDocumentos(this.documentos);
     }
 
     public String mostrarTerminos(){
@@ -67,6 +78,18 @@ public class Vocabulario {
             stringBuilder.append("\n");
         }
         return stringBuilder.toString();
+    }
+
+    private boolean tieneDocumento(String nombre){
+        if(this.documentos.get(nombre) != null) {return true;}
+        return false;
+    }
+
+    public void agregarDocumento(String nombre, String path){
+        if(this.tieneDocumento(nombre)){ return; }
+
+        Documento documento = new Documento(nombre, path); // TODO ver parametros
+        this.documentos.put(nombre, documento);
     }
 
 }

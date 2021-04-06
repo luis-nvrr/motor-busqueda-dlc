@@ -1,7 +1,5 @@
 package Infraestructura;
 
-import Dominio.Documento;
-import Dominio.DocumentoRepository;
 import Dominio.Termino;
 import Dominio.TerminoRepository;
 
