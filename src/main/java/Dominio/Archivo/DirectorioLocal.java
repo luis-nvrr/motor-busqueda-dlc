@@ -15,7 +15,7 @@ public class DirectorioLocal implements IDirectorio {
 
     public List<IArchivo> getArchivos(){
         for (File file: directorio.listFiles()) {
-            IArchivo archivo = new ArchivoLocal(file.getName());
+            IArchivo archivo = new ArchivoLocal(file.getAbsolutePath());
             archivos.add(archivo);
         }
         return archivos;

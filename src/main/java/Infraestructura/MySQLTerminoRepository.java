@@ -10,7 +10,7 @@ import java.util.Map;
 
 public class MySQLTerminoRepository implements TerminoRepository {
 
-    private final Connection connection = MySQLConnection.conectar();
+    private Connection connection;
     private final DocumentoRepository documentoRepository = new MySQLDocumentoRepository();
 
     @Override
@@ -30,6 +30,7 @@ public class MySQLTerminoRepository implements TerminoRepository {
     @Override
     public void saveTerminos(Map<String, Termino> terminos) {
         try {
+            connection = MySQLConnection.conectar();
             Statement statement = connection.createStatement();
             StringBuilder query =
                     new StringBuilder("INSERT INTO Terminos " +
@@ -37,8 +38,8 @@ public class MySQLTerminoRepository implements TerminoRepository {
 
             for (Map.Entry<String, Termino> entry : terminos.entrySet()) {
 
-                Map<String, Documento> posteo = entry.getValue().getPosteo();
-                documentoRepository.saveDocumentos(posteo);
+                //Map<String, Documento> posteo = entry.getValue().getPosteo();
+                //documentoRepository.saveDocumentos(posteo);
 
                 String palabra = entry.getValue().getTermino();
                 int cantidadDocumentos = entry.getValue().getCantidadDocumentos();
@@ -51,7 +52,7 @@ public class MySQLTerminoRepository implements TerminoRepository {
             query.setCharAt(query.length()-1, ';');
 
             statement.execute(query.toString());
-
+            connection.close();
         } catch (SQLException exception) {
             exception.printStackTrace();
         }
