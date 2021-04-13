@@ -30,4 +30,8 @@ public class GestorBusqueda {
     public String mostrarDocumentos(){
         return vocabulario.mostrarDocumentos();
     }
+
+    public int mostrarCantidadTerminosVocabulario(){
+        return vocabulario.cantidadTerminos();
+    }
 }

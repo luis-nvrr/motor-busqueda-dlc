@@ -1,7 +1,5 @@
 package Dominio;
 
-import javax.xml.stream.events.EntityReference;
-import java.io.File;
 import java.util.Hashtable;
 import java.util.Iterator;
 import java.util.Map;
@@ -105,7 +103,7 @@ public class Vocabulario {
     }
 
     public void savePosteos(PosteoRepository posteoRepository){
-        posteoRepository.saveDocumentos(vocabulario);
+        posteoRepository.savePosteos(vocabulario);
     }
 
     public void saveDocumentos(DocumentoRepository documentoRepository){
@@ -113,6 +111,7 @@ public class Vocabulario {
     }
 
     public void getAllTerminos(TerminoRepository terminoRepository){
+        this.vocabulario = terminoRepository.getAllTerminos();
     }
 
     public void getAllPosteos(PosteoRepository posteoRepository){

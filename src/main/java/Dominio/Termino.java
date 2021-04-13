@@ -19,6 +19,13 @@ public class Termino {
         this.termino = termino;
     }
 
+    public Termino(String termino, int cantidadDocumentos, int maximaFrecuenciaTermino){
+        this.posteo = new Hashtable<>();
+        this.termino = termino;
+        this.cantidadDocumentos = cantidadDocumentos;
+        this.maximaFrecuenciaTermino = maximaFrecuenciaTermino;
+    }
+
     public Map<Documento, Posteo> getPosteo(){
         return posteo;
     }
