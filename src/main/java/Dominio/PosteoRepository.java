@@ -1,11 +1,12 @@
 package Dominio;
 
+import java.util.List;
 import java.util.Map;
 
 public interface PosteoRepository {
 
     Posteo getPosteo();
-    Map<String, Posteo> getAllPosteos();
+    void getAllPosteos(Map<String, Termino> terminos, Map<String, Documento> documentos);
     void savePosteo(Posteo posteo);
-    void savePosteos(Map<String, Termino> vocabulario);
+    void savePosteos(Map<String, Termino> terminos);
 }

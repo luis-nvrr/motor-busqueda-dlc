@@ -22,5 +22,25 @@ public class Documento {
     public String getLink() {
         return link;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Documento documento = (Documento) o;
+
+        if (!nombre.equals(documento.nombre)) return false;
+        if (!path.equals(documento.path)) return false;
+        return link.equals(documento.link);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = nombre.hashCode();
+        result = 31 * result + path.hashCode();
+        result = 31 * result + link.hashCode();
+        return result;
+    }
 }
 

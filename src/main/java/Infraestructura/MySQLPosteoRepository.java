@@ -1,13 +1,12 @@
 package Infraestructura;
 
-import Dominio.Documento;
-import Dominio.Posteo;
-import Dominio.PosteoRepository;
-import Dominio.Termino;
+import Dominio.*;
 
 import java.sql.Connection;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.List;
 import java.util.Map;
 
 public class MySQLPosteoRepository implements PosteoRepository {
@@ -19,36 +18,56 @@ public class MySQLPosteoRepository implements PosteoRepository {
     }
 
     @Override
-    public Map<String, Posteo> getAllPosteos() {
-        return null;
-    }
-
-    @Override
     public void savePosteo(Posteo posteo) {
-
     }
 
     @Override
-    public void savePosteos(Map<String, Termino> vocabulario) {
+    public void getAllPosteos(Map<String, Termino> terminos, Map<String, Documento> documentos) {
+        try{
+            connection = MySQLConnection.conectar();
+            Statement statement = connection.createStatement();
+            String query = "SELECT * FROM Posteos";
+            ResultSet resultSet = statement.executeQuery(query);
+
+            while(resultSet.next()){
+                String terminoString = resultSet.getString("termino");
+                String documentoString = resultSet.getString("nombre"); // TODO cambiar nombre por documento
+                int frecuenciaTermino = resultSet.getInt("frecuenciaTermino");
+
+                Documento documento = documentos.get(documentoString);
+                Posteo posteo = new Posteo(documento, frecuenciaTermino);
+
+                Termino termino = terminos.get(terminoString);
+                termino.agregarAListaPosteos(posteo);
+            }
+            connection.close();
+        }
+        catch (SQLException exception){
+            exception.printStackTrace();
+        }
+    }
+
+    @Override
+    public void savePosteos(Map<String, Termino> terminos) {
         try {
             connection = MySQLConnection.conectar();
             Statement statement = connection.createStatement();
             StringBuilder query =
                     new StringBuilder("INSERT INTO Posteos " +
-                            "(nombre, termino, frecuenciaTermino) VALUES ");
+                            "(nombre, termino, frecuenciaTermino) VALUES "); // TODO cambiar nombre por documento
 
 
-            for (Map.Entry<String, Termino> entry : vocabulario.entrySet()) {
-                String termino = entry.getKey();
-                Map<Documento, Posteo> listaPosteos = entry.getValue().getPosteo();
+            for (Map.Entry<String, Termino> entry : terminos.entrySet()) {
+                String palabra = entry.getKey();
+                Termino termino = entry.getValue();
+                List<Posteo> listaPosteos = termino.getPosteos();
 
-                for (Map.Entry<Documento, Posteo> entryPosteo : listaPosteos.entrySet()) {
-                    Posteo posteo = entryPosteo.getValue();
-                    String nombre = posteo.obtenerNombre();
+                for (Posteo posteo : listaPosteos) {
+                    String documento = posteo.obtenerNombre(); // TODO cambiar obtenerNombre por documento
                     int frecuenciaTermino = posteo.getFrecuenciaTermino();
 
-                    query.append("('").append(nombre).append("','")
-                            .append(termino).append("',")
+                    query.append("('").append(documento).append("','")
+                            .append(palabra).append("',")
                             .append(frecuenciaTermino).append("),");
                 }
             }

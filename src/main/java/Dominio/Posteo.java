@@ -5,8 +5,12 @@ public class Posteo implements Comparable<Posteo>{
     private Documento documento;
 
     public Posteo(Documento documento){
+        this(documento, 1);
+    }
+
+    public Posteo(Documento documento, int frecuenciaTermino){
         this.documento = documento;
-        this.frecuenciaTermino = 1;
+        this.frecuenciaTermino = frecuenciaTermino;
     }
 
     public void sumarFrecuencia(){
@@ -23,6 +27,13 @@ public class Posteo implements Comparable<Posteo>{
 
     public String obtenerLink(){
         return this.documento.getLink();
+    }
+
+    public boolean tieneDocumento(Documento documento){
+        if(this.documento.equals(documento)){
+            return true;
+        }
+        return false;
     }
 
 

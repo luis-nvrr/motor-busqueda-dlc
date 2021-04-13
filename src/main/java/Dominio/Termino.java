@@ -1,33 +1,30 @@
 package Dominio;
 
-import java.util.Hashtable;
+import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.Map;
+import java.util.List;
 
 public class Termino {
 
-    private Map<Documento, Posteo> posteo;
+    private List<Posteo> posteos;
     private String termino;
     private int cantidadDocumentos;
     private int maximaFrecuenciaTermino;
 
 
     public Termino(String termino){
-        this.posteo = new Hashtable<>();
-        this.cantidadDocumentos = 1;
-        this.maximaFrecuenciaTermino = 1;
-        this.termino = termino;
+        this(termino, 1, 1);
     }
 
     public Termino(String termino, int cantidadDocumentos, int maximaFrecuenciaTermino){
-        this.posteo = new Hashtable<>();
+        this.posteos = new ArrayList<>();
         this.termino = termino;
         this.cantidadDocumentos = cantidadDocumentos;
         this.maximaFrecuenciaTermino = maximaFrecuenciaTermino;
     }
 
-    public Map<Documento, Posteo> getPosteo(){
-        return posteo;
+    public List<Posteo> getPosteos(){
+        return posteos;
     }
 
     public String getTermino() {
@@ -42,9 +39,9 @@ public class Termino {
         return maximaFrecuenciaTermino;
     }
 
-    public void agregarPosteo(Documento documento){
+    public void sumarPosteo(Documento documento){
         cantidadDocumentos++;
-        Posteo recuperado = posteo.get(documento);
+        Posteo recuperado = buscarPosteo(documento);
 
         if(recuperado == null){ agregarNuevoPosteo(documento);}
         else{
@@ -54,13 +51,26 @@ public class Termino {
 
     private void agregarNuevoPosteo(Documento documento){
         Posteo posteo = new Posteo(documento);
-        agregarAPosteo(documento, posteo);
+        agregarAListaPosteos(posteo);
+    }
+
+    private Posteo buscarPosteo(Documento documento){
+        Iterator<Posteo> it = posteos.iterator();
+
+        while(it.hasNext()){
+            Posteo posteo = it.next();
+            if(posteo.tieneDocumento(documento)){
+                it.remove();
+                return posteo;
+            }
+        }
+        return null;
     }
 
     private void actualizarPosteoExistente(Documento documento, Posteo posteo){
         posteo.sumarFrecuencia();
         actualizarFrecuenciaMaxima(posteo);
-        agregarAPosteo(documento, posteo);
+        agregarAListaPosteos(posteo);
     }
 
     private void actualizarFrecuenciaMaxima(Posteo posteo){
@@ -69,23 +79,21 @@ public class Termino {
         }
     }
 
-    private void agregarAPosteo(Documento documento, Posteo posteo){
-        this.posteo.put(documento, posteo);
+    public void agregarAListaPosteos(Posteo posteo){
+        this.posteos.add(posteo);
     }
 
     public String mostrarOrdenPosteo(){
-        posteo = Ordenador.sortByValue(posteo);
-
-        Iterator<Map.Entry<Documento, Posteo>> it = posteo.entrySet().iterator();
+        Iterator<Posteo> it = posteos.iterator();
         StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append("termino: ").append(termino).append("\n\t");
 
         while(it.hasNext()) {
-            stringBuilder.append("documento: ");
-            stringBuilder.append(it.next().getValue().getFrecuenciaTermino());
-            stringBuilder.append(" ");
+            stringBuilder.append("frecuencia: ")
+                    .append(it.next().getFrecuenciaTermino())
+                    .append(" ");
         }
         stringBuilder.append("\n");
         return stringBuilder.toString();
     }
-
 }

@@ -5,16 +5,16 @@ import java.util.Iterator;
 import java.util.Map;
 
 public class Vocabulario {
-    private Map<String, Termino> vocabulario;
+    private Map<String, Termino> terminos;
     private Map<String, Documento> documentos;
 
     public Vocabulario(){
-        this.vocabulario = new Hashtable<>();
+        this.terminos = new Hashtable<>();
         this.documentos = new Hashtable<>();
     }
 
     public int cantidadTerminos(){
-        return vocabulario.size();
+        return terminos.size();
     }
 
     private boolean tieneDocumento(String nombre){
@@ -30,7 +30,7 @@ public class Vocabulario {
     }
 
     public void agregarTermino(String termino, String nombre){
-        Termino recuperado = vocabulario.get(termino);
+        Termino recuperado = terminos.get(termino);
         Documento documento = documentos.get(nombre);
 
         if (recuperado == null) { agregarInexistente(termino, documento); }
@@ -40,21 +40,21 @@ public class Vocabulario {
     }
 
     private void actualizarExistente(Termino termino, Documento documento){
-        termino.agregarPosteo(documento);
+        termino.sumarPosteo(documento);
         agregarAVocabulario(termino.getTermino(), termino);
     }
     private void agregarInexistente(String termino, Documento documento){
         Termino nuevo = new Termino(termino);
-        nuevo.agregarPosteo(documento);
+        nuevo.sumarPosteo(documento);
         agregarAVocabulario(termino, nuevo);
     }
 
     private void agregarAVocabulario(String key, Termino termino){
-        this.vocabulario.put(key, termino);
+        this.terminos.put(key, termino);
     }
 
     public String mostrarTerminos(){
-        Iterator<Map.Entry<String, Termino>> it = vocabulario.entrySet().iterator();
+        Iterator<Map.Entry<String, Termino>> it = terminos.entrySet().iterator();
         StringBuilder stringBuilder = new StringBuilder();
 
         while(it.hasNext()) {
@@ -68,16 +68,12 @@ public class Vocabulario {
     }
 
     public String mostrarOrdenPosteo(){
-        Iterator<Map.Entry<String, Termino>> it = vocabulario.entrySet().iterator();
+        Iterator<Map.Entry<String, Termino>> it = terminos.entrySet().iterator();
         StringBuilder stringBuilder = new StringBuilder();
 
         while(it.hasNext()) {
             Map.Entry<String, Termino> entry = it.next();
-            stringBuilder.append("termino: ");
-            stringBuilder.append(entry.getKey());
-            stringBuilder.append(" posteo: ");
             stringBuilder.append(entry.getValue().mostrarOrdenPosteo());
-            stringBuilder.append("\n");
         }
 
         return stringBuilder.toString();
@@ -99,25 +95,26 @@ public class Vocabulario {
     }
 
     public void saveTerminos(TerminoRepository terminoRepository){
-        terminoRepository.saveTerminos(vocabulario);
+        terminoRepository.saveTerminos(terminos);
     }
 
     public void savePosteos(PosteoRepository posteoRepository){
-        posteoRepository.savePosteos(vocabulario);
+        posteoRepository.savePosteos(terminos);
     }
 
     public void saveDocumentos(DocumentoRepository documentoRepository){
         documentoRepository.saveDocumentos(this.documentos);
     }
 
+    public void getAllDocumentos(DocumentoRepository documentoRepository){
+        this.documentos = documentoRepository.getAllDocumentos();
+    }
+
     public void getAllTerminos(TerminoRepository terminoRepository){
-        this.vocabulario = terminoRepository.getAllTerminos();
+        this.terminos = terminoRepository.getAllTerminos();
     }
 
     public void getAllPosteos(PosteoRepository posteoRepository){
-    }
-
-    public void getAllDocumentos(DocumentoRepository documentoRepository){
-        this.documentos = documentoRepository.getAllDocumentos();
+        posteoRepository.getAllPosteos(terminos, documentos);
     }
 }

@@ -13,6 +13,11 @@ import java.util.Map;
 public class MySQLDocumentoRepository implements DocumentoRepository {
 
     private Connection connection;
+    private Map<String, Documento> documentos;
+
+    public Documento getDocumentoByName(String name){
+        return documentos.get(name);
+    }
 
     @Override
     public void saveDocumentos(Map<String, Documento> documentos) {
@@ -44,7 +49,7 @@ public class MySQLDocumentoRepository implements DocumentoRepository {
     }
 
     public Map<String, Documento> getAllDocumentos(){
-        Map<String, Documento> documentos = new Hashtable<>();
+        documentos = new Hashtable<>();
         try{
             connection = MySQLConnection.conectar();
             Statement statement = connection.createStatement();
