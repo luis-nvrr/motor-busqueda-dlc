@@ -1,9 +1,11 @@
 package Infraestructura;
 
+import Dominio.Documento;
 import Dominio.Termino;
 import Dominio.TerminoRepository;
 
 import java.sql.*;
+import java.util.Hashtable;
 import java.util.Map;
 
 public class MySQLTerminoRepository implements TerminoRepository {
@@ -16,12 +18,33 @@ public class MySQLTerminoRepository implements TerminoRepository {
     }
 
     @Override
-    public Map<String, Termino> getTerminos() {
-        return null;
+    public void saveTermino(Termino termino) {
     }
 
     @Override
-    public void saveTermino(Termino termino) {
+    public Map<String, Termino> getAllTerminos() {
+        Map<String, Termino> terminos = new Hashtable<>();
+        try{
+            connection = MySQLConnection.conectar();
+            Statement statement = connection.createStatement();
+            String query = "SELECT * FROM Terminos";
+            ResultSet resultSet = statement.executeQuery(query);
+
+            while(resultSet.next()){
+                String palabra = resultSet.getString("termino");
+                int cantidadDocumentos = resultSet.getInt("cantidadDocumentos");
+                int maximaFrecuenciaTermino = resultSet.getInt("maximaFrecuenciaTermino");
+
+                Termino termino = new Termino(palabra, cantidadDocumentos, maximaFrecuenciaTermino);
+                terminos.put(palabra, termino);
+            }
+            connection.close();
+        }
+        catch (SQLException exception){
+            exception.printStackTrace();
+        }
+
+        return terminos;
     }
 
     @Override

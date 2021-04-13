@@ -14,22 +14,22 @@ public class MySQLPosteoRepository implements PosteoRepository {
     private Connection connection;
 
     @Override
-    public Posteo getDocumento() {
+    public Posteo getPosteo() {
         return null;
     }
 
     @Override
-    public Map<String, Posteo> getDocumentos() {
+    public Map<String, Posteo> getAllPosteos() {
         return null;
     }
 
     @Override
-    public void saveDocumento(Posteo posteo) {
+    public void savePosteo(Posteo posteo) {
 
     }
 
     @Override
-    public void saveDocumentos(Map<String, Termino> vocabulario) {
+    public void savePosteos(Map<String, Termino> vocabulario) {
         try {
             connection = MySQLConnection.conectar();
             Statement statement = connection.createStatement();
