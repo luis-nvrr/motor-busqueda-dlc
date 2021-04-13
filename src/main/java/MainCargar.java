@@ -1,6 +1,6 @@
 import Aplicacion.GestorIndexacion;
 
-public class Main {
+public class MainCargar {
 
     public static void main(String[] args) {
         GestorIndexacion gestorIndexacion = new GestorIndexacion();

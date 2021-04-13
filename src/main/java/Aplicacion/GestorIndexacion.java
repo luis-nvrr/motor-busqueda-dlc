@@ -34,7 +34,7 @@ public class GestorIndexacion {
     public void cargarVocabularioArchivo(String archivoPath){
         IArchivo archivo = new ArchivoLocal(archivoPath);
         indexador.cargarVocabularioArchivo(archivo);
-        //persistir();
+        persistir();
     }
 
     public void cargarVocabularioDirectorio(String directorioPath){
@@ -56,8 +56,8 @@ public class GestorIndexacion {
     }
 
     private void persistir(){
-        //vocabulario.saveTerminos(terminoRepository);
-        //vocabulario.saveDocumentos(documentoRepository);
+        vocabulario.saveDocumentos(documentoRepository);
+        vocabulario.saveTerminos(terminoRepository);
         vocabulario.savePosteos(posteoRepository);
     }
 }

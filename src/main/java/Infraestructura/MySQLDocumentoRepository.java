@@ -2,12 +2,12 @@ package Infraestructura;
 
 import Dominio.DocumentoRepository;
 import Dominio.Documento;
-import Dominio.Termino;
 
-import javax.print.Doc;
 import java.sql.Connection;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.Hashtable;
 import java.util.Map;
 
 public class MySQLDocumentoRepository implements DocumentoRepository {
@@ -26,7 +26,7 @@ public class MySQLDocumentoRepository implements DocumentoRepository {
             for (Map.Entry<String, Documento> entry : documentos.entrySet()) {
                 Documento documento = entry.getValue();
                 String nombre = documento.getNombre();
-                String path = documento.getPath();
+                String path = (documento.getPath()).replace("\\", "\\\\");
                 String link = documento.getLink();
 
                 query.append("('").append(nombre).append("','")
@@ -41,5 +41,30 @@ public class MySQLDocumentoRepository implements DocumentoRepository {
         } catch (SQLException exception) {
             exception.printStackTrace();
         }
+    }
+
+    public Map<String, Documento> getAllDocumentos(){
+        Map<String, Documento> documentos = new Hashtable<>();
+        try{
+            connection = MySQLConnection.conectar();
+            Statement statement = connection.createStatement();
+            String query = "SELECT * FROM Documentos";
+            ResultSet resultSet = statement.executeQuery(query);
+
+            while(resultSet.next()){
+                String nombre = resultSet.getString("nombre");
+                String path = resultSet.getString("path");
+                String link = resultSet.getString("link");
+
+                Documento documento= new Documento(nombre, path); // TODO agregar link
+                documentos.put(nombre, documento);
+            }
+            connection.close();
+        }
+        catch (SQLException exception){
+            exception.printStackTrace();
+        }
+
+        return documentos;
     }
 }

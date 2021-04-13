@@ -1,5 +1,7 @@
 package Dominio;
 
+import javax.xml.stream.events.EntityReference;
+import java.io.File;
 import java.util.Hashtable;
 import java.util.Iterator;
 import java.util.Map;
@@ -13,6 +15,21 @@ public class Vocabulario {
         this.documentos = new Hashtable<>();
     }
 
+    public int cantidadTerminos(){
+        return vocabulario.size();
+    }
+
+    private boolean tieneDocumento(String nombre){
+        if(this.documentos.get(nombre) != null) {return true;}
+        return false;
+    }
+
+    public void agregarDocumento(String nombre, String path){
+        if(this.tieneDocumento(nombre)){ return; }
+
+        Documento documento = new Documento(nombre, path); // TODO agregar link
+        this.documentos.put(nombre, documento);
+    }
 
     public void agregarTermino(String termino, String nombre){
         Termino recuperado = vocabulario.get(termino);
@@ -38,6 +55,51 @@ public class Vocabulario {
         this.vocabulario.put(key, termino);
     }
 
+    public String mostrarTerminos(){
+        Iterator<Map.Entry<String, Termino>> it = vocabulario.entrySet().iterator();
+        StringBuilder stringBuilder = new StringBuilder();
+
+        while(it.hasNext()) {
+            Map.Entry<String, Termino> entry = it.next();
+            stringBuilder.append("termino: ");
+            stringBuilder.append(entry.getKey());
+            stringBuilder.append("\n");
+        }
+
+        return stringBuilder.toString();
+    }
+
+    public String mostrarOrdenPosteo(){
+        Iterator<Map.Entry<String, Termino>> it = vocabulario.entrySet().iterator();
+        StringBuilder stringBuilder = new StringBuilder();
+
+        while(it.hasNext()) {
+            Map.Entry<String, Termino> entry = it.next();
+            stringBuilder.append("termino: ");
+            stringBuilder.append(entry.getKey());
+            stringBuilder.append(" posteo: ");
+            stringBuilder.append(entry.getValue().mostrarOrdenPosteo());
+            stringBuilder.append("\n");
+        }
+
+        return stringBuilder.toString();
+    }
+
+    public String mostrarDocumentos(){
+        Iterator<Map.Entry<String, Documento>> it = documentos.entrySet().iterator();
+        StringBuilder stringBuilder = new StringBuilder();
+
+        while(it.hasNext()){
+            Map.Entry<String, Documento> entry = it.next();
+            Documento documento = entry.getValue();
+            stringBuilder.append("documento: ").append(documento.getNombre())
+                    .append(" ").append("path: ").append(documento.getPath())
+                    .append("\n");
+        }
+
+        return stringBuilder.toString();
+    }
+
     public void saveTerminos(TerminoRepository terminoRepository){
         terminoRepository.saveTerminos(vocabulario);
     }
@@ -50,46 +112,13 @@ public class Vocabulario {
         documentoRepository.saveDocumentos(this.documentos);
     }
 
-    public String mostrarTerminos(){
-        Iterator<Map.Entry<String, Termino>> it = vocabulario.entrySet().iterator();
-        StringBuilder stringBuilder = new StringBuilder();
-        while(it.hasNext()) {
-            Map.Entry<String, Termino> entry = it.next();
-            stringBuilder.append("termino: ");
-            stringBuilder.append(entry.getKey());
-            stringBuilder.append("\n");
-        }
-        return stringBuilder.toString();
+    public void getAllTerminos(TerminoRepository terminoRepository){
     }
 
-    public int cantidadTerminos(){
-        return vocabulario.size();
+    public void getAllPosteos(PosteoRepository posteoRepository){
     }
 
-    public String mostrarOrdenPosteo(){
-        Iterator<Map.Entry<String, Termino>> it = vocabulario.entrySet().iterator();
-        StringBuilder stringBuilder = new StringBuilder();
-        while(it.hasNext()) {
-            Map.Entry<String, Termino> entry = it.next();
-            stringBuilder.append("termino: ");
-            stringBuilder.append(entry.getKey());
-            stringBuilder.append(" posteo: ");
-            stringBuilder.append(entry.getValue().mostrarOrdenPosteo());
-            stringBuilder.append("\n");
-        }
-        return stringBuilder.toString();
+    public void getAllDocumentos(DocumentoRepository documentoRepository){
+        this.documentos = documentoRepository.getAllDocumentos();
     }
-
-    private boolean tieneDocumento(String nombre){
-        if(this.documentos.get(nombre) != null) {return true;}
-        return false;
-    }
-
-    public void agregarDocumento(String nombre, String path){
-        if(this.tieneDocumento(nombre)){ return; }
-
-        Documento documento = new Documento(nombre, path); // TODO ver parametros
-        this.documentos.put(nombre, documento);
-    }
-
 }
