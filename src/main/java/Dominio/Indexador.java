@@ -40,6 +40,7 @@ public class Indexador {
                 stopWord.agregarStopWord(termino);
             }
         }
+        archivo.closeReader();
     }
 
     public void cargarVocabularioDirectorio(IDirectorio directorio){
