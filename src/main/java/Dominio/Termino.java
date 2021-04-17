@@ -45,7 +45,7 @@ public class Termino {
 
         if(recuperado == null){ agregarNuevoPosteo(documento);}
         else{
-            actualizarPosteoExistente(documento, recuperado);
+            actualizarPosteoExistente(recuperado);
         }
     }
 
@@ -67,7 +67,7 @@ public class Termino {
         return null;
     }
 
-    private void actualizarPosteoExistente(Documento documento, Posteo posteo){
+    private void actualizarPosteoExistente(Posteo posteo){
         posteo.sumarFrecuencia();
         actualizarFrecuenciaMaxima(posteo);
         agregarAListaPosteos(posteo);
