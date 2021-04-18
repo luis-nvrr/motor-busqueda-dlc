@@ -4,9 +4,9 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-public class Termino {
+public class Termino implements Comparable<Termino>{
 
-    private final List<Posteo> posteos;
+    private List<Posteo> posteos;
     private final String termino;
     private int cantidadDocumentos;
     private int maximaFrecuenciaTermino;
@@ -25,6 +25,10 @@ public class Termino {
 
     public List<Posteo> getPosteos(){
         return posteos;
+    }
+
+    public void setPosteos(List<Posteo> posteos){
+        this.posteos = posteos;
     }
 
     public String getTermino() {
@@ -55,12 +59,9 @@ public class Termino {
     }
 
     private Posteo buscarPosteo(Documento documento){
-        Iterator<Posteo> it = posteos.iterator();
 
-        while(it.hasNext()){
-            Posteo posteo = it.next();
-            if(posteo.tieneDocumento(documento)){
-                it.remove();
+        for (Posteo posteo : posteos) {
+            if (posteo.tieneDocumento(documento)) {
                 return posteo;
             }
         }
@@ -70,7 +71,6 @@ public class Termino {
     private void actualizarPosteoExistente(Posteo posteo){
         posteo.sumarFrecuencia();
         actualizarFrecuenciaMaxima(posteo);
-        agregarAListaPosteos(posteo);
     }
 
     private void actualizarFrecuenciaMaxima(Posteo posteo){
@@ -95,5 +95,10 @@ public class Termino {
         }
         stringBuilder.append("\n");
         return stringBuilder.toString();
+    }
+
+    @Override
+    public int compareTo(Termino o) {
+        return this.cantidadDocumentos - o.cantidadDocumentos;
     }
 }

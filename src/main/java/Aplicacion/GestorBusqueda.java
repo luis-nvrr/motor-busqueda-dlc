@@ -5,30 +5,32 @@ import Infraestructura.MySQLDocumentoRepository;
 import Infraestructura.MySQLPosteoRepository;
 import Infraestructura.MySQLTerminoRepository;
 
-import java.util.List;
-
 public class GestorBusqueda {
     DocumentoRepository documentoRepository;
     PosteoRepository posteoRepository;
     TerminoRepository terminoRepository;
     Vocabulario vocabulario;
-    List<DocumentoRecuperado> recuperados;
+    Buscador buscador;
 
     public GestorBusqueda(){
-        documentoRepository = new MySQLDocumentoRepository();
-        posteoRepository = new MySQLPosteoRepository();
-        terminoRepository = new MySQLTerminoRepository();
-        vocabulario = new Vocabulario();
+        this.documentoRepository = new MySQLDocumentoRepository();
+        this.posteoRepository = new MySQLPosteoRepository();
+        this.terminoRepository = new MySQLTerminoRepository();
+        this.vocabulario = new Vocabulario();
+        this.buscador = new Buscador(vocabulario, posteoRepository);
     }
 
     public void recuperarVocabulario(){
-        vocabulario.getAllDocumentos(documentoRepository);
-        vocabulario.getAllTerminos(terminoRepository);
-        //vocabulario.getAllPosteos(posteoRepository);
+        this.vocabulario.getAllDocumentos(documentoRepository);
+        this.vocabulario.getAllTerminos(terminoRepository);
     }
 
     public void buscar(String terminos){
+        this.buscador.buscar(terminos);
+    }
 
+    public String mostrarDocumentosRecuperados() {
+        return buscador.mostrarDocumentosRecuperados();
     }
 
     public String mostrarDocumentos(){

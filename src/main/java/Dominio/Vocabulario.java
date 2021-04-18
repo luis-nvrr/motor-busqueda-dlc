@@ -1,8 +1,6 @@
 package Dominio;
 
-import java.util.Hashtable;
-import java.util.Iterator;
-import java.util.Map;
+import java.util.*;
 
 public class Vocabulario {
     private Map<String, Termino> terminos;
@@ -50,6 +48,19 @@ public class Vocabulario {
 
     private void agregarAVocabulario(String key, Termino termino){
         this.terminos.put(key, termino);
+    }
+
+    public List<Termino> obtenerListaTerminos(String[] terminosString, PosteoRepository posteoRepository){
+        List<Termino> terminosOrdenados = new ArrayList<>();
+
+        for(String terminoString : terminosString){
+            Termino termino = this.terminos.get(terminoString);
+            termino.setPosteos(posteoRepository.getAllPosteos(terminoString, documentos));
+            terminosOrdenados.add(termino);
+        }
+
+        terminosOrdenados.sort(Termino::compareTo);
+        return terminosOrdenados;
     }
 
     public String mostrarTerminos(){
@@ -113,7 +124,7 @@ public class Vocabulario {
         this.terminos = terminoRepository.getAllTerminos();
     }
 
-    public void getAllPosteos(PosteoRepository posteoRepository){
+    /* public void getAllPosteos(PosteoRepository posteoRepository){
         posteoRepository.getAllPosteos(terminos, documentos);
-    }
+    }*/
 }

@@ -21,12 +21,12 @@ public class Posteo implements Comparable<Posteo>{
         return frecuenciaTermino;
     }
 
-    public String obtenerNombre(){
+    public String obtenerNombreDocumento(){
         return this.documento.getNombre();
     }
 
-    public String obtenerLink(){
-        return this.documento.getLink();
+    public Documento getDocumento(){
+        return this.documento;
     }
 
     public boolean tieneDocumento(Documento documento){

@@ -6,11 +6,12 @@ public class MainBuscar {
         GestorBusqueda gestorBusqueda = new GestorBusqueda();
         gestorBusqueda.recuperarVocabulario();
 
-        String terminos = "prueba";
+        String terminos = "world";
 
         gestorBusqueda.buscar(terminos);
 
-        System.out.println(gestorBusqueda.mostrarDocumentos());
-        System.out.println(gestorBusqueda.mostrarCantidadTerminosVocabulario());
+        System.out.println(gestorBusqueda.mostrarDocumentosRecuperados());
+        //System.out.println(gestorBusqueda.mostrarDocumentos());
+        //System.out.println(gestorBusqueda.mostrarCantidadTerminosVocabulario());
     }
 }

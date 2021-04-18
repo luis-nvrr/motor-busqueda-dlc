@@ -6,7 +6,7 @@ import java.util.Map;
 public interface PosteoRepository {
 
     Posteo getPosteo();
-    void getAllPosteos(Map<String, Termino> terminos, Map<String, Documento> documentos);
+    List<Posteo> getAllPosteos(String termino, Map<String, Documento> documentos);
     void savePosteo(Posteo posteo);
     void savePosteos(Map<String, Termino> terminos);
 }
