@@ -1,8 +1,8 @@
 package Dominio;
 
 public class Documento {
-    private String nombre;
-    private String path;
+    private final String nombre;
+    private final String path;
     private String link;
 
 

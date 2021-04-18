@@ -2,7 +2,7 @@ package Dominio;
 
 public class Posteo implements Comparable<Posteo>{
     private int frecuenciaTermino;
-    private Documento documento;
+    private final Documento documento;
 
     public Posteo(Documento documento){
         this(documento, 1);
@@ -30,10 +30,7 @@ public class Posteo implements Comparable<Posteo>{
     }
 
     public boolean tieneDocumento(Documento documento){
-        if(this.documento.equals(documento)){
-            return true;
-        }
-        return false;
+        return this.documento.equals(documento);
     }
 
 

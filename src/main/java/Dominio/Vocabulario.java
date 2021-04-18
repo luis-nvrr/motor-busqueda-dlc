@@ -18,8 +18,7 @@ public class Vocabulario {
     }
 
     private boolean tieneDocumento(String nombre){
-        if(this.documentos.get(nombre) != null) {return true;}
-        return false;
+        return this.documentos.get(nombre) != null;
     }
 
     public void agregarDocumento(String nombre, String path){

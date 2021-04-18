@@ -3,10 +3,10 @@ package Dominio.Archivo;
 import java.io.*;
 
 public class ArchivoLocal implements IArchivo {
-    private String path;
+    private final String path;
     private BufferedReader bufferedReader;
-    private String nombre;
-    private File archivo;
+    private final String nombre;
+    private final File archivo;
 
 
     public ArchivoLocal(String path){

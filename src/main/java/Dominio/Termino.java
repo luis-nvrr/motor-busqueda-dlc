@@ -6,8 +6,8 @@ import java.util.List;
 
 public class Termino {
 
-    private List<Posteo> posteos;
-    private String termino;
+    private final List<Posteo> posteos;
+    private final String termino;
     private int cantidadDocumentos;
     private int maximaFrecuenciaTermino;
 

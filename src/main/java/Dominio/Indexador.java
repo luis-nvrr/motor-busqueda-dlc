@@ -4,8 +4,8 @@ import Dominio.Archivo.IArchivo;
 import Dominio.Archivo.IDirectorio;
 
 public class Indexador {
-    private Vocabulario vocabulario;
-    private StopWord stopWord;
+    private final Vocabulario vocabulario;
+    private final StopWord stopWord;
 
     public Indexador(Vocabulario vocabulario, StopWord stopWord){
         this.vocabulario = vocabulario;
